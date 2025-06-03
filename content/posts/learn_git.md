@@ -1,7 +1,9 @@
 +++
 date = '2025-06-03T15:56:41+08:00'
-draft = true
+draft = false
 title = 'Learn_git'
+categories = ["工具"]
+tags = ["git"]
 +++
 
 
