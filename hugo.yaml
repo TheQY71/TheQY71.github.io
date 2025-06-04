@@ -111,10 +111,10 @@ params:
 
   # 评论的设置
   giscus:
-    repo: "sonnycalcr/sonnycalcr.github.io"
-    repoId: "R_kgDOMed_Fg"
+    repo: "TheQY71/TheQY71.github.io"
+    repoId: "R_kgDOKLogLQ"
     category: "Announcements"
-    categoryId: "DIC_kwDOMed_Fs4ChXJF"
+    categoryId: "DIC_kwDOKLogLc4Cq-0f"
     mapping: "pathname"
     strict: "0"
     reactionsEnabled: "1"
