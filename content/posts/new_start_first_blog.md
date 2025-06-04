@@ -21,23 +21,13 @@ categories = ["闲聊"]
 最后还是免费图床`postimg.cc`吧
 
 ### 测试图床链接
-reddit Markdown
-[golden-boy.jpg](https://postimg.cc/yD9mgLrp)
 
 github Markdown
+`[![golden-boy.jpg](https://i.postimg.cc/FHCD6qbv/golden-boy.jpg)](https://postimg.cc/yD9mgLrp)`
 [![golden-boy.jpg](https://i.postimg.cc/FHCD6qbv/golden-boy.jpg)](https://postimg.cc/yD9mgLrp)
 
-Thumbnail for forums
-[url=https://postimg.cc/yD9mgLrp][img]https://i.postimg.cc/yD9mgLrp/golden-boy.jpg[/img][/url]
-
-Thumbnail for website:
-<a href='https://postimg.cc/yD9mgLrp' target='_blank'><img src='https://i.postimg.cc/yD9mgLrp/golden-boy.jpg' border='0' alt='golden-boy'/></a>
-
-Hotlink for forums:
-[url=https://postimg.cc/yD9mgLrp][img]https://i.postimg.cc/FHCD6qbv/golden-boy.jpg[/img][/url]
-
 Hotlink for website:
-<a href='https://postimg.cc/yD9mgLrp' target='_blank'><img src='https://i.postimg.cc/FHCD6qbv/golden-boy.jpg' border='0' alt='golden-boy'/></a>
+`<a href='https://postimg.cc/yD9mgLrp' target='_blank'><img src='https://i.postimg.cc/FHCD6qbv/golden-boy.jpg' border='0' alt='golden-boy'/></a>`
 
 ## 参考
 1. [Hugo官方文档](https://gohugo.io/documentation/)

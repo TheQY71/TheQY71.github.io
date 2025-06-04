@@ -72,13 +72,13 @@ params:
       Welcome to my Blog! 这里主要记录了我的学习过程中的一些笔记。博客因为是托管在 Github 上面，以及，图床使用的是国外免费的 Postimages，所以，挂上一个梯子可能会让访问更加顺畅。
 
   # 社交帐号的按钮
-  # socialIcons:
-  #   - name: github
-  #     title: Follow my Github
-  #     url: "https://github.com/sonnycalcr"
-  #   - name: X
-  #     title: Follow my Twitter
-  #     url: "https://x.com/sonnycalcr"
+  socialIcons:
+    - name: github
+      title: Follow my Github
+      url: "https://github.com/TheQY71"
+    # - name: X
+    #   title: Follow my Twitter
+    #   url: "https://x.com/TheQY71"
   #   - name: Bilibili
   #     title: 关注我的 B 站帐号
   #     url: "https://space.bilibili.com/3493138859559908"
