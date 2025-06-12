@@ -11,23 +11,30 @@ categories = ["闲聊"]
 
 花了大半天时间，终于搭建完成。
 
-之后要勤写博客(笔记)，不然是不是就白瞎了hugo的高性能？😂
-
 ## 图床
 
 考虑到如果图像也传到github上面可能会导致过于臃肿，所以打算使用图床，但是选择图床又让我纠结了半天。
+
 安全性？
 价格？
-最后还是免费图床`postimg.cc`吧
+
+蒜鸟，蒜鸟，重点是学习记录，这些就怎么简单怎么来。所以最后还是免费图床`postimg.cc`吧!
 
 ### 测试图床链接
 
+图床提供的这两种连接可以直接在网页上显示
+
 github Markdown
+
 `[![golden-boy.jpg](https://i.postimg.cc/FHCD6qbv/golden-boy.jpg)](https://postimg.cc/yD9mgLrp)`
+
 [![golden-boy.jpg](https://i.postimg.cc/FHCD6qbv/golden-boy.jpg)](https://postimg.cc/yD9mgLrp)
 
 Hotlink for website:
+
 `<a href='https://postimg.cc/yD9mgLrp' target='_blank'><img src='https://i.postimg.cc/FHCD6qbv/golden-boy.jpg' border='0' alt='golden-boy'/></a>`
+
+<a href='https://postimg.cc/yD9mgLrp' target='_blank'><img src='https://i.postimg.cc/FHCD6qbv/golden-boy.jpg' border='0' alt='golden-boy'/></a>
 
 ## 参考
 1. [Hugo官方文档](https://gohugo.io/documentation/)

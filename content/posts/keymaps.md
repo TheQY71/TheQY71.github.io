@@ -2,8 +2,8 @@
 date = '2025-06-04T13:35:28+08:00'
 draft = false
 title = 'Keymaps'
-categories = ["笔记"]
-tags = ["备忘"]
+categories = ["配置"]
+tags = ["config","vim","tmux","potplayer"]
 +++
 
 ## VSCode Neovim 快捷键配置使用文档
