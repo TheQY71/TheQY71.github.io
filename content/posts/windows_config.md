@@ -1,6 +1,6 @@
 +++
 date = '2025-06-12T10:30:13+08:00'
-draft = true
+draft = false
 title = 'Windows的一些配置'
 categories = ["配置"]
 tags = ["config","windows"]
