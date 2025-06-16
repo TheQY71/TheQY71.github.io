@@ -6,23 +6,23 @@ categories = ["逆向"]
 tags = ["js", "逆向", "python"]
 +++
 
-# 备忘
+# 1. 备忘
 
-## 常见加密值
+## 1.1 常见加密值
 md5(123456,32) = e10adc3949ba59abbe56e057f20f883e
 
 md5(123456,16) = 49ba59abbe56e057
 
-# JS 基础
+# 2. JS 基础
 
 局部变量在函数执行完毕后销毁。
 全局变量在页面关闭后销毁。
 
-## 内部函数如何外部调用?
+## 2.1 内部函数如何外部调用?
 
 在 JavaScript 中，内部函数（即定义在另一个函数内部的函数）默认只能在其外部函数的作用域内访问，外部无法直接调用。但有几种常见方法可以让外部调用内部函数：
 
-### 1. 返回内部函数（闭包）
+### 2.1.1 返回内部函数（闭包）
 
 你可以让外部函数返回内部函数，这样外部就能通过返回值调用它：
 
@@ -38,7 +38,7 @@ const fn = outer(); // fn 现在就是 inner
 fn(); // 输出：内部函数被调用
 ```
 
-### 2. 将内部函数挂载到外部对象
+### 2.1.2 将内部函数挂载到外部对象
 
 你可以把内部函数赋值给外部对象的属性：
 
@@ -56,7 +56,7 @@ inner(); // 输出：内部函数被调用
 ```
 > 注意：在 Node.js 环境下用 `global.inner = inner;`，在浏览器用 `window.inner = inner;`。
 
-### 3. 通过变量传递
+### 2.1.3 通过变量传递
 
 ```js
 var inner_;
@@ -71,7 +71,7 @@ outer();
 inner_(); // 输出：内部函数被调用
 ```
 
-### 4. 通过参数传递
+### 2.1.4 通过参数传递
 
 你也可以把内部函数作为参数传递出去：
 
@@ -88,8 +88,7 @@ outer(function(fn) {
 });
 ```
 
-
-## 自执行函数
+## 2.2 自执行函数
 
 ```javascript
 // 方式1：最常用的写法
@@ -112,9 +111,7 @@ outer(function(fn) {
 
 补充：+-~这几个符号也会使自执行函数立即执行，但是处理返回值的方式不同，如果不需要返回值，使用 ! 操作符最简单。
 
---- 
-
-## 浏览器环境
+## 2.3 浏览器环境
 
 DOM相关知识: 
 - [DOM HTML](https://www.runoob.com/js/js-htmldom-html.html)
@@ -122,8 +119,7 @@ DOM相关知识:
 - [DOM 元素](https://www.runoob.com/js/js-htmldom-elements.html)
 - [DOM EventListener](https://www.runoob.com/js/js-htmldom-eventlistener.html)
 
-### 补头
-
+### 2.3.1 补头
 
 用于过检测
 
@@ -137,9 +133,9 @@ window = {
 window.location.href
 ```
 
-### 例子
+### 2.3.2 例子
 
-#### document.write+""
+#### 2.3.2.1 document.write+""
 
 ```javascript
 document.write+""
@@ -170,14 +166,13 @@ document.write.toString = function () {
 }
 ```
 
-
-### js 检查浏览器环境
+### 2.3.3 js 检查浏览器环境
 
 ```javascript
 navigator.plugins
 ```
 
-### dom 事件
+### 2.3.4 dom 事件
 
 常见的DOM事件及其应用场景:
 
@@ -211,7 +206,7 @@ navigator.plugins
    - 输入监听
    - 按键记录
    
-## 表单
+## 2.4 表单
 
 除了js可以传数据，html中的表单也可以传数据
 下面是一个简单的例子：
@@ -224,16 +219,15 @@ navigator.plugins
 ```
 注意：action可以是php文件，onsubmit可以执行js函数
 
+# 3. JS 调试
 
-# JS 调试
-
-## Event Listeners
+## 3.1 Event Listeners
 
 点登陆的按钮，elements>Event Listeners下会新出现这个按钮所绑定的事件(例如submit)
 
 然后可以点击到对应的js源代码中
 
-### 事件监听器调试
+### 3.1.1 事件监听器调试
 
 1. **查看事件绑定**：
    - 在浏览器开发者工具中，选择要调试的元素（例如登录按钮）。
