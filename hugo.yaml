@@ -28,9 +28,12 @@ languages:
         - name: 首页
           pageRef: /
           weight: 4 # 控制在页面上展示的前后顺序
+        - name: 阅读笔记
+          pageRef: books/
+          weight: 5 # 控制在页面上展示的前后顺序
         - name: 归档
           pageRef: archives/
-          weight: 5
+          weight: 6
         - name: 分类
           pageRef: categories/
           weight: 10
