@@ -6,7 +6,7 @@ categories = ["逆向"]
 tags = ["js", "逆向", "python"]
 +++
 
-# 杂项
+# 基础
 
 ## 图片懒加载
 
@@ -24,5 +24,45 @@ tags = ["js", "逆向", "python"]
 
 ## 视频下载
 
+```python
+import requests
+from lxml import etree
+import os
+
+url ="https://www.51miz.com/shipin/" 
+
+headers={
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
+    "Referer": "https://www.51miz.com/"
+}
+
+response = requests.get(url,headers=headers)
+
+html = response.text
+
+tree = etree.HTML(html)
+mp4_urls = tree.xpath('//video[contains(@src, ".mp4")]/@src | //video/source[contains(@src, ".mp4")]/@src | //source[contains(@src, ".mp4")]/@src | //a[contains(@href, ".mp4")]/@href')
+
+print(f"共找到 {len(mp4_urls)} 个视频:", mp4_urls)
+
+# 下载所有视频
+for idx, mp4_url in enumerate(mp4_urls, 1):
+    # 处理相对路径
+    if not mp4_url.startswith('http'):
+        mp4_url = requests.compat.urljoin(url, mp4_url)
+    print(f"正在下载第{idx}个视频: {mp4_url}")
+    try:
+        r = requests.get(mp4_url, headers=headers, stream=True, timeout=30)
+        r.raise_for_status()
+        filename = f"video_{idx}.mp4"
+        with open(filename, 'wb') as f:
+            for chunk in r.iter_content(chunk_size=8192):
+                if chunk:
+                    f.write(chunk)
+        print(f"已保存为 {filename}")
+    except Exception as e:
+        print(f"下载失败: {mp4_url}, 错误: {e}")
+
+```
 
 
