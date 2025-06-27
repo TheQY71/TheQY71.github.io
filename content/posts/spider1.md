@@ -8,7 +8,20 @@ tags = ["js", "逆向", "python"]
 
 # 基础
 
-## 图片懒加载
+## 1.概念
+
+**同步**：任务按顺序执行，一个任务完成后才能开始下一个。
+
+**异步**：任务不按顺序执行，可以同时进行多个任务，无需等待前一个任务完成。
+
+**协程 (Coroutine)**：一种用户态的轻量级线程，由程序自身调度，而非操作系统。
+    1.  **非抢占式调度**：协程主动让出CPU。
+    2.  **上下文切换开销小**：只保存和恢复少量寄存器。
+    3.  **高并发**：可在单线程内实现大量并发任务。
+    4.  **适用于I/O密集型任务**。
+
+
+## 2.图片懒加载
 
 没有滑动到这部分，图像的url就不加载
 ```html
@@ -22,7 +35,7 @@ tags = ["js", "逆向", "python"]
 图像src中存储的是一个假地址，真实的图像地址是存在data-originial(别的地方可能不叫这个属性名)中的。
 
 
-## 视频下载
+## 3.视频下载
 
 ```python
 import requests
@@ -64,5 +77,35 @@ for idx, mp4_url in enumerate(mp4_urls, 1):
         print(f"下载失败: {mp4_url}, 错误: {e}")
 
 ```
+
+## 4.模拟登陆
+
+```python
+import requests
+from lxml import etree
+
+headers = {
+    'User-Agent':'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36',
+}
+
+login_url = 'https://passport.17k.com/ck/user/login'
+data = {
+    "loginName": "15027900535",
+    "password": "xxxxxxxx"
+}
+
+session = requests.Session()
+#请求的目的是为了获取cookie将其保存到session对象中
+session.post(url=login_url,headers=headers,data=data)
+
+#携带cookie向书架的页面进行请求发送，获取书架信息
+#书架中的数据是动态加载的数据
+book_url = 'https://user.17k.com/ck/author2/shelf?page=1&appKey=2406394919'
+page_text = session.get(url=book_url,headers=headers).json()
+
+#解析书架信息
+print(page_text)
+```
+
 
 
