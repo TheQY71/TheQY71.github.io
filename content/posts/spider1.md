@@ -107,5 +107,48 @@ page_text = session.get(url=book_url,headers=headers).json()
 print(page_text)
 ```
 
+## 5. 编码
 
+### 1.5.1 URL编码 (URL Encoding)
+
+在网络传输中，URL（统一资源定位符）中包含一些特殊字符（如空格、中文、某些符号等）时，可能会导致解析错误或歧义。为了确保URL的有效性和正确传输，需要对这些特殊字符进行编码，将其转换为一系列百分号（%）后跟两位十六进制数的表示形式。这个过程就是URL编码。
+
+Python的 `urllib.parse` 模块提供了处理URL编码和解码的工具。
+
+#### 示例：对中文字符进行URL编码
+
+```python
+import urllib.parse
+
+# 待编码的字符串，这里是一个中文字符串
+original_string = "测试"
+
+# 使用 urllib.parse.quote() 函数进行URL编码
+# 默认编码方式是 UTF-8，这也是Web开发中常用的编码
+encoded_string = urllib.parse.quote(original_string)
+
+print(f"原始字符串: {original_string}")
+print(f"编码后字符串: {encoded_string}")
+# 预期输出:
+# 原始字符串: 测试
+# 编码后字符串: %E6%B5%8B%E8%AF%95
+```
+
+**输出解释：**
+
+- `%E6%B5%8B%E8%AF%95` 是 "测试" 两个字经过UTF-8编码后，再转换为URL编码的结果。
+- `%E6%B5%8B` 代表汉字 "测" 的UTF-8编码（E6 B5 8B）。
+- `%E8%AF%95` 代表汉字 "试" 的UTF-8编码（E8 AF 95）。
+
+#### 扩展知识点：
+
+- `urllib.parse.quote(string, safe='/', encoding=None, errors=None)`**:
+  - `string`: 必需，要编码的字符串。
+  - `safe`: 可选，一个字符串，包含不需要编码的字符。默认情况下，`/` 不会被编码。
+  - `encoding`: 可选，指定编码方式，默认为 `UTF-8`。
+- `urllib.parse.unquote(string, encoding='utf-8', errors='replace')`**:
+  - 用于将URL编码的字符串解码回原始字符串。
+  - 例如：`urllib.parse.unquote('%E6%B5%8B%E8%AF%95')` 将返回 `'测试'`。
+
+URL编码是Web开发中处理GET请求参数、构建API请求等场景中非常基础且重要的操作。
 
