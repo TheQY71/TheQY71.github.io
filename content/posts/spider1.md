@@ -152,3 +152,307 @@ print(f"编码后字符串: {encoded_string}")
 
 URL编码是Web开发中处理GET请求参数、构建API请求等场景中非常基础且重要的操作。
 
+
+### 1.5.2 Base64编码
+
+#### base64基础
+Base64是一种将二进制数据编码为ASCII字符串的编码方法，常用于在文本协议中传输二进制数据。它将每3个字节（24位）的数据编码为4个Base64字符（每个字符6位）。(ASCII编码不够6位截断的时候末尾补0)
+
+[![2025-07-10-10-01-24.png](https://i.postimg.cc/QCtsPGt9/2025-07-10-10-01-24.png)](https://postimg.cc/JD99DFjM)
+
+```python
+import base64
+
+s = "you"
+s_base64 = base64.b64encode(s.encode())
+print(s_base64)  # b'eW91'
+```
+
+#### base64替换
+base64编码中没有`-`和`_`，这是网站对base64编码做了替换，现在我们要替换回去：
+
+```python
+data = s.replace("-", "+").replace("_", "/")
+```
+
+#### base64图片
+
+```python
+import base64
+s = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAA7VBMVEUAAAD////////s8v////+txP+qwv+4zf/w9f/2+P+hu//Q3f+yyP+4zf/Q3f////+kvv+90P+80f+2yv/S4P/T4P/M2//z9/+cuP/V4P9Whv////9Uhf9Sg/9Pgf9NgP/8/f9di/9Xh/9lkf5aif9qlP7z9//k7P/c5v+2y/94nv51nP6lv/+LrP6Ep/6BpP5gjf7v9P+wxv/U4f/M2/+sxP+vxv73+f/P3v/J2v+5zf+ivP+fuv9xmf+Ytv6Usv6Hqf58of5vl/7m7v/g6f+zyf6QsP75+//q8P/B0v/W4//C1P6+0P6qwv6ct/76fHZiAAAAGnRSTlMAGAaVR/Py45aC9Mfy2b8t9OPZ2ce/v4L0x/e74/EAAAIZSURBVDjLZVPXYuIwEDSmQ4BLv5O0ku3Yhwu2IZTQe0hy7f8/57QSoYR5sVea1c424wgzl324LRRuH7I507hEJluYucCFEOBGhWzmy7X5+N0WwIjTbrcdBsKulM0z96onGCGE2X6n+cTkj/CqJ480igzkNXp26E9JkABSbBz8i4Bn3EkH840mKHoxs49fZQzt2Kd03FQEzSB3WsejB9Jqf1CJQBM0wCurABWBoub0gkDENwyStTHA62pwSWDtklRQ4FLfjnaiPqVW60hAYeLKNHIREOZuKTL80H6XBFCwn4BAmDOyLiOQUIlOSEjaoS+Ju57NZuul73Fml4w6yAivSLBW3MGfcfBmIegmArg3alICdJHgy1jQt8Z/6CcC4DdGXhLIoiWRACpbLYbDYW80GnXp2GH8ShP+PUvEoHsAIFq9Xm8+kXlIwkkI9pm+05Tm3yWqu9EiB0pkwjWBx2i+tND1XqeZqpPU4VhUbq/ekR8CwTRVoRxf3ifTbeIwcONNsJZ2lxFVKDMv1KNvS2zXdrnD+COvR1PQpTZKNlKD3cLCOJNnivgVxkw169BunlKFaV9/B+LQbqOsByY4IVgDB59dl/cjR9TIJV1Lh7CGqUqH/DDPhhZYOPkdLz6m0X7GrzPHsSe6zJwzxvm+5NeNi8U5ABfn7mz7zHJFrZ6+BY6rd7m8kQtcAtwwXzq4n69/vZbP1+pn6/8fsrRmHUhmpYYAAAAASUVORK5CYII="
+base64_img = s.split(",")[1]  # 获取base64编码部分
+img_bytes = base64.b64decode(base64_img)
+with open("output_image.png", "wb") as img_file:
+    img_file.write(img_bytes)
+```
+
+### 1.5.3 摘要算法
+
+
+```python
+import hashlib
+
+data = b"Hello, World!"
+
+# MD5
+md5_hash = hashlib.md5(data).hexdigest()
+print(f"MD5: {md5_hash}")
+# MD5: 65a8e27d8879283831b664bd8b7f0ad4
+
+# SHA1
+sha1_hash = hashlib.sha1(data).hexdigest()
+print(f"SHA1: {sha1_hash}")
+# SHA1: 0a0a9f2a6772942557ab5355d76af442f8f65e01
+
+# SHA256
+sha256_hash = hashlib.sha256(data).hexdigest()
+print(f"SHA256: {sha256_hash}")
+# SHA256: dffd6021bb2bd5b0af676290809ec3a53191dd81c7f70a4b28688a362182986f
+
+# SHA512
+sha512_hash = hashlib.sha512(data).hexdigest()
+print(f"SHA512: {sha512_hash}")
+# SHA512: 374d794a95cdcfd8b35993185fef9ba368f160d8daf432d08ba9f1ed1e5abe6cc69291e0fa2fe0006a52570ef18c19def4e617c33ce52ef0a6e5fbe318cb0387
+```
+
+MD5哈希算法支持分块更新，多次update()等同于一次性对所有数据进行update()。
+```python
+from hashlib import md5
+
+data = "123"
+data1 = "456"
+m = md5("IamSalt".encode())
+m.update(data.encode())
+m.update(data1.encode())
+print(m.hexdigest())  # 501b685bc3b8c1cf80f9dc6f0bba1a24
+print(md5(b"IamSalt123456").hexdigest())  # 501b685bc3b8c1cf80f9dc6f0bba1a24
+```
+
+`hexdigest()`返回十六进制字符串，`digest()`返回字节序列。
+
+1.  **MD5 (Message-Digest Algorithm 5)**
+    *   **特点**: 128位哈希值，速度快，但安全性低，易发生碰撞。
+    *   **场景**: 文件完整性校验（已不推荐用于安全敏感场景）。
+    *   **逆向**: 无法直接逆向，但可通过彩虹表、暴力破解等方式“碰撞”出原文。
+
+2.  **SHA-1 (Secure Hash Algorithm 1)**
+    *   **特点**: 160位哈希值，曾广泛使用，但安全性已不足，存在理论碰撞风险。
+    *   **场景**: Git版本控制（文件校验），TLS/SSL证书（已弃用）。
+    *   **逆向**: 同MD5，无法直接逆向，可通过碰撞攻击。
+
+3.  **SHA-256 (Secure Hash Algorithm 256)**
+    *   **特点**: 256位哈希值，SHA-2家族成员，安全性较高，目前广泛使用。
+    *   **场景**: 区块链（比特币挖矿）、数字签名、密码存储（加盐后）。
+    *   **逆向**: 无法直接逆向，计算复杂度极高，碰撞难度大。
+
+4.  **SHA-512 (Secure Hash Algorithm 512)**
+    *   **特点**: 512位哈希值，SHA-2家族成员，安全性更高，计算量相对较大。
+    *   **场景**: 高安全性要求的数据完整性校验、密码存储（加盐后）。
+    *   **逆向**: 无法直接逆向，计算复杂度极高，碰撞难度极大。
+
+Web中的使用场景:
+
+*   **密码存储**: 用户密码经过加盐（salt）后，使用SHA-256或SHA-512进行哈希存储，而非明文。
+*   **数据完整性**: 校验下载文件、API响应数据的完整性，防止篡改。
+*   **数字签名**: 确保数据来源的真实性和完整性，如JWT令牌签名。
+*   **内容寻址**: CDN、IPFS等系统通过内容的哈希值来唯一标识和检索数据。
+
+这些哈希算法（MD5, SHA-1, SHA-256, SHA-512）对任意长度的输入文本进行加密（哈希）后，得到的输出结果长度是固定且一致的。
+
+
+## 6.加密
+
+### 6.1 对称加密之AES
+AES（高级加密标准）是一种对称密钥加密算法, 对称加密指的是加密和解密用的钥匙是一把, AES密钥长度：128、192或256位
+
+CBC和ECB是AES的两种工作模式：
+
+- ECB (Electronic Codebook)**：
+  - 每个数据块独立加密。
+  - 相同明文块会产生相同密文块。
+  - 不安全，易受模式分析攻击。
+- CBC (Cipher Block Chaining)**：
+  - 每个数据块在加密前与前一个密文块进行异或操作。
+  - 需要一个初始化向量（IV）。
+  - 相同明文块会产生不同密文块。
+  - 更安全，广泛使用。
+
+#### ECB 
+加密案例：
+```python
+from Crypto.Cipher import AES
+from Crypto.Util.Padding import pad, unpad
+import base64
+
+key = "0123456789abcdef".encode()  # 因为是aes-128，所以key长度必须是16字节
+text = "alex is a monkey"  # 加密内容，长度必须是16的倍数
+text = pad(text.encode(), 16)
+print("pad text:", text)
+# pad text: b'alex is a monkey\x10\x10\x10\x10\x10\x10\x10\x10\x10\x10\x10\x10\x10\x10\x10\x10'
+
+aes = AES.new(key=key, mode=AES.MODE_ECB)  # ECB模式不需要iv
+en_text = aes.encrypt(text)
+print("aes加密数据：：：", en_text)
+# aes加密数据：：： b'8O\xc9JM[\xbb\x04\xb3MK\x1f\x07\x018\x117r"\xe0a\xa9$\xc5\x91\xcd\x9c\'\xea\x16>\xd4'
+
+b64encode_encrypt_data = base64.b64encode(en_text)
+print("base64加密数据：：：", b64encode_encrypt_data)
+# base64加密数据：：： b'OE/JSk1buwSzTUsfBwE4ETdyIuBhqSTFkc2cJ+oWPtQ='
+```
+注意：先加密后编码，ECB模式不需要初始化向量(IV)
+
+解密：
+```python
+from Crypto.Cipher import AES
+from Crypto.Util.Padding import pad, unpad
+import base64
+
+key = "0123456789abcdef".encode()  # 因为是aes-128，所以key长度必须是16字节
+base64_encrypt_data = b"OE/JSk1buwSzTUsfBwE4ETdyIuBhqSTFkc2cJ+oWPtQ="
+encrypt_data = base64.b64decode(base64_encrypt_data)
+aes = AES.new(key=key, mode=AES.MODE_ECB)  # ECB模式不需要iv
+de_text = aes.decrypt(encrypt_data)
+de_text = unpad(de_text, AES.block_size).decode("utf-8")
+print("aes解密数据：：：", de_text)
+# aes解密数据：：： alex is a monkey
+```
+
+#### ECB与CBC模式的区别：
+- **ECB模式**：电子密码本模式，每个明文块独立加密，相同的明文块会产生相同的密文块，不需要IV
+- **CBC模式**：密码块链接模式，每个明文块与前一个密文块进行异或运算后再加密，需要IV作为第一个块的初始值
+- **安全性**：CBC模式比ECB模式更安全，因为ECB模式会暴露明文的模式信息 
+
+
+#### CBC 
+加密案例：
+```python
+from Crypto.Cipher import AES
+from Crypto.Util.Padding import pad, unpad
+import base64
+
+key = "0123456789abcdef".encode()  # 因为是aes-128，所以key长度必须是16字节
+iv = b"abcabcabcabcabca"  # 偏移量：因为是aes-128，所以iv长度必须是16字节
+text = "alex is a monkey"  # 加密内容，长度必须是16的倍数
+
+text = pad(text.encode(), 16)
+print("pad text:", text)
+# pad text: b'alex is a monkey\x10\x10\x10\x10\x10\x10\x10\x10\x10\x10\x10\x10\x10\x10\x10\x10'
+
+aes = AES.new(key=key, mode=AES.MODE_CBC, iv=iv)
+en_text = aes.encrypt(text)
+print("aes加密数据：：：", en_text)
+# aes加密数据：：： b's\xc7\x0c+\xbe\x06\x90\xe8]s\x00z[\xcb:B\xf0\x9b\x02\x0eb\xc79\xe7\x11\xc4\x9fs\xf4\x90cK'
+
+b64encode_encrypt_data = base64.b64encode(en_text)
+print("base64加密数据：：：", b64encode_encrypt_data)
+# base64加密数据：：： b'c8cMK74GkOhdcwB6W8s6QvCbAg5ixznnEcSfc/SQY0s='
+```
+注意：先加密后编码
+
+解密：
+```python
+from Crypto.Cipher import AES
+from Crypto.Util.Padding import pad, unpad
+import base64
+
+
+key = "0123456789abcdef".encode()  # 因为是aes-128，所以key长度必须是16字节
+iv = b"abcabcabcabcabca"  # 偏移量：因为是aes-128，所以iv长度必须是16字节
+text = "alex is a monkey"  # 加密内容，长度必须是16的倍数
+
+base64_encrypt_data = b"c8cMK74GkOhdcwB6W8s6QvCbAg5ixznnEcSfc/SQY0s="
+encrypt_data = base64.b64decode(base64_encrypt_data)
+
+aes = AES.new(key=key, mode=AES.MODE_CBC, iv=iv)
+de_text = aes.decrypt(encrypt_data)
+de_text = unpad(de_text, AES.block_size).decode("utf-8")
+print("aes解密数据：：：", de_text)
+# aes解密数据：：： alex is a monkey
+```
+
+### 6.2 对称加密之DES
+
+### 6.3 非对称加密RSA
+
+公钥加密，私钥解密：数据加密
+私钥加密，公钥解密：数字签名
+
+#### 生成密钥
+```python
+from Crypto.PublicKey import RSA
+
+# 构建ras算法对象
+rsaKey = RSA.generate(1024)
+# 获取公钥
+publicKey = rsaKey.publickey().export_key()
+# 获取私钥
+privateKey = rsaKey.export_key()
+
+with open("rsa.public.pem", "wb") as f:
+    f.write(publicKey)
+
+with open("rsa.private.pem", "wb") as f:
+    f.write(privateKey)
+```
+
+#### 加密文本
+
+```python
+from Crypto.PublicKey import RSA
+from Crypto.Cipher import PKCS1_v1_5
+import base64
+
+data = "alex is a monkey"
+
+with open("./rsa.public.pem", "r") as f:
+    # (1) 获取公钥对象
+    public_key = RSA.import_key(f.read())
+
+    # (2) 获取rsa算法对象
+    rsa = PKCS1_v1_5.new(public_key)
+
+    # (3) 基于RSA数据进行加密
+    encrypted_data = rsa.encrypt(data.encode())
+    print("encrypted_data: ", encrypted_data)
+    # encrypted_data:  b'\x11E\xcf`4\xeeK\xe2\xafdwE\xb4\x92\xde"\xa9\x15\xd9\x97\x96:\xda{\xa4\xcfg[hd\x94\x8d %U\xb1\x10z\xb4\xd6:\xf2\x1e\xc8\x96\xbdt\x04\xed\x03c\x9f/?\xe6\x08?v\xa6;qhp\x197\xb3\xb2\xa8\xea\xb4T\xd5\xb7:\xae\xb8\xb4\xdb25\xda\x15d\x07w\x18P\xcd\x89\x17\xd4\xef\xd9\xa0d3@\x96@0\xae\xd0;.\xc1\'\xbe\xde\x7f\x89\xea\x10\x80H\x91\x92,\xaf\x99\xc0\xc8\x1d\xbb\xc4,qv\xc2'
+
+    # (4) 为了能在网络中正确传输，进行base64编码
+    base64_encrypted_data = base64.b64encode(encrypted_data)
+    print("base64_encrypted_data: ", base64_encrypted_data.decode())
+    # base64_encrypted_data:  EUXPYDTuS+KvZHdFtJLeIqkV2ZeWOtp7pM9nW2hklI0gJVWxEHq01jryHsiWvXQE7QNjny8/5gg/dqY7cWhwGTezsqjqtFTVtzquuLTbMjXaFWQHdxhQzYkX1O/ZoGQzQJZAMK7QOy7BJ77ef4nqEIBIkZIsr5nAyB27xCxxdsI=
+```
+
+#### 解密文本
+
+```python
+from Crypto.PublicKey import RSA
+from Crypto.Cipher import PKCS1_v1_5
+import base64
+
+data = "EUXPYDTuS+KvZHdFtJLeIqkV2ZeWOtp7pM9nW2hklI0gJVWxEHq01jryHsiWvXQE7QNjny8/5gg/dqY7cWhwGTezsqjqtFTVtzquuLTbMjXaFWQHdxhQzYkX1O/ZoGQzQJZAMK7QOy7BJ77ef4nqEIBIkZIsr5nAyB27xCxxdsI="
+
+with open("./rsa.private.pem", "r") as f:
+    # (1) 获取公钥对象
+    private_key = RSA.import_key(f.read())
+
+    # (2) 获取rsa算法对象
+    rsa = PKCS1_v1_5.new(private_key)
+
+    # (3) 基于RSA数据进行解密
+    decrypted_data = rsa.decrypt(base64.b64decode(data), None)
+    print("decrypted_data: ", decrypted_data)
+    # decrypted_data:  b'alex is a monkey'
+```
+
+## 7 js版本的加密算法
+
+### 7.1 md5_hash
+
+```javascript
+const CryptoJS = require('crypto-js');
+// 原始数据
+const data = 'Hello, World!';
+// 生成MD5摘要
+const md5Digest = CryptoJS.MD5(data).toString();
+console.log(md5Digest);
+```
