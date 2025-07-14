@@ -186,7 +186,7 @@ with open("output_image.png", "wb") as img_file:
     img_file.write(img_bytes)
 ```
 
-### 1.5.3 摘要算法
+### 1.5.3 摘要算法(MD5, SHA1, SHA256, SHA512)
 
 
 ```python
@@ -454,5 +454,23 @@ const CryptoJS = require('crypto-js');
 const data = 'Hello, World!';
 // 生成MD5摘要
 const md5Digest = CryptoJS.MD5(data).toString();
-console.log(md5Digest);
+console.log(md5Digest); // 65a8e27d8879283831b664bd8b7f0ad4
 ```
+
+### 7.2 AES 加密
+
+```javascript
+const CryptoJS = require('crypto-js');
+var key = CryptoJS.enc.Utf8.parse('1234567890123456'); // 16字节密钥
+var iv = CryptoJS.enc.Utf8.parse('1234567890123456'); // 16字节IV
+var plaintext = 'Hello, World!';
+var ciphertext = CryptoJS.AES.encrypt(plaintext, key, {
+    iv: iv,
+    mode: CryptoJS.mode.CBC,
+    padding: CryptoJS.pad.Pkcs7
+}).toString();
+console.log(ciphertext); // KQ8kBYRmIyMCoh9rwsq6YA==
+```
+
+
+
