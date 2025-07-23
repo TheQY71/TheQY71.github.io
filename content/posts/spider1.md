@@ -472,5 +472,45 @@ var ciphertext = CryptoJS.AES.encrypt(plaintext, key, {
 console.log(ciphertext); // KQ8kBYRmIyMCoh9rwsq6YA==
 ```
 
+## 8.定位加密位置
+
+1. 逆向值位置:数据中(查询数据和form数据),请求头中,cookie中
+2. 逆向值定位(入口查询)
+方法1:请求堆栈+加密数据
+方法2:关键字搜索
+- 关联key
+- url路径搜索
+- 敏感词搜索:
+  - md5
+  - sha1
+  - encrypt
+  - decrypt
+  - JSON.stringify
+  - JSON.parse
+  - interceptors
+  - interceptors.response
+  - interceptors.request
+
+
+
+## 9.js proxy
+
+```javascript
+var xxx: { age: number, username: string } = {
+    username: "yuan",
+    age: 22
+}
+
+console.log(xxx.username);
+console.log(xxx.age);
+
+xxx.username = "rain"
+xxx.age = 18
+
+console.log(xxx.username);
+console.log(xxx.age)
+```
+
+输出结果：
 
 
