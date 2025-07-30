@@ -492,25 +492,74 @@ console.log(ciphertext); // KQ8kBYRmIyMCoh9rwsq6YA==
   - interceptors.request
 
 
+## 9. JS Proxy：实现对象操作验证
 
-## 9.js proxy
+通过 `Proxy`，可以创建一个对象的代理，从而实现对该对象基本操作的拦截和自定义。这常用于数据验证，确保对对象的操作符合预设规则。
+
+### 核心概念
+
+-   **`target`**: 被代理的目标对象。
+-   **`handler`**: 一个配置对象，其属性是当执行一个操作时自定义行为的函数（称为“陷阱”/trap）。
+-   **`handler.set()`**: 拦截设置属性值的操作，是实现数据验证的关键。
+
+### 代码示例
+
+以下示例确保 `person` 对象的 `age` 属性只能被设置为 0-150 之间的整数。
 
 ```javascript
-var xxx: { age: number, username: string } = {
-    username: "yuan",
-    age: 22
+// 1. 定义目标对象 (Target)
+const person = {
+  name: '张三',
+  age: 25
+};
+
+// 2. 定义处理器/验证器 (Handler)
+const validator = {
+  set(target, key, value) {
+    // 只验证 'age' 属性
+    if (key === 'age') {
+      if (!Number.isInteger(value)) {
+        throw new TypeError('年龄必须是整数。');
+      }
+      if (value < 0 || value > 150) {
+        throw new RangeError('年龄必须在 0 到 150 之间。');
+      }
+    }
+
+    // 对于其他属性或验证通过，执行默认赋值操作
+    target[key] = value;
+    
+    // 返回 true 表示操作成功
+    return true;
+  }
+};
+
+// 3. 创建代理 (Proxy)
+const proxyPerson = new Proxy(person, validator);
+
+// 4. 操作代理对象
+
+// --- 合法操作 ---
+proxyPerson.age = 30; 
+console.log(proxyPerson.age); // 输出: 30
+
+proxyPerson.name = '李四'; // 成功，因为 name 属性没有验证规则
+console.log(proxyPerson.name); // 输出: 李四
+
+// --- 非法操作 ---
+try {
+  proxyPerson.age = 200; // 将抛出 RangeError
+} catch (e) {
+  console.error(e.message); // 输出: 年龄必须在 0 到 150 之间。
 }
 
-console.log(xxx.username);
-console.log(xxx.age);
+try {
+  proxyPerson.age = 'young'; // 将抛出 TypeError
+} catch (e) {
+  console.error(e.message); // 输出: 年龄必须是整数。
+}
 
-xxx.username = "rain"
-xxx.age = 18
+// 验证失败后，原对象的值不会被改变
+console.log(person.age); // 输出: 30
 
-console.log(xxx.username);
-console.log(xxx.age)
 ```
-
-输出结果：
-
-
