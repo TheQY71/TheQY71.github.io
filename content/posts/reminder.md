@@ -35,3 +35,12 @@ description = '个人备忘录'
 
 3. **在本地浏览器**访问：
    打开 `http://localhost:6006` 即可查看远程服务器上的TensorBoard日志。
+   
+
+## 2.linux
+
+### (1).指定只使用服务器的第一张卡跑代码：
+
+```shell
+CUDA_VISIBLE_DEVICES=0 python main_stage1.py
+```
