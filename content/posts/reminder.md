@@ -44,3 +44,16 @@ description = '个人备忘录'
 ```shell
 CUDA_VISIBLE_DEVICES=0 python main_stage1.py
 ```
+
+### (2).压缩和解压缩文件夹
+
+压缩
+```shell
+tar -czvf 压缩文件名.tar.gz 文件夹名
+```
+
+解压缩
+```shell
+tar -xzvf 压缩文件名.tar.gz
+```
+
