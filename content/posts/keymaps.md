@@ -8,7 +8,7 @@ tags = ["config","vim","tmux","potplayer"]
 
 ## VSCode Neovim 快捷键配置使用文档
 
-这份文档介绍了您在 VSCode 中使用 Neovim 扩展时配置的快捷键。这些快捷键旨在提高您的编码效率，结合了 Vim 的强大编辑能力和 VSCode 的现代功能。
+在 VSCode 中使用 Neovim 扩展时配置的快捷键。
 
 ### 基础配置
 
