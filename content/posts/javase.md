@@ -3,7 +3,7 @@ date = '2025-08-28T13:31:44+08:00'
 draft = true
 title = 'JavaSE 学习笔记'
 categories = ["java"]
-tags = ["java", "基础","学习笔记“]
+tags = ["java", "基础","学习笔记"]
 +++
 
 # 基础语法
