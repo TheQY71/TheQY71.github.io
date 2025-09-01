@@ -5,6 +5,11 @@ title = 'Learn_html'
 categories = ["前端"]
 tags = ["html", "基础","学习笔记"]
 +++
+## documents
+
+[mdn HTML Guides](https://developer.mozilla.org/en-US/docs/Web/HTML/Guides)
+[HTML Cheatsheet](https://developer.mozilla.org/en-US/docs/Web/HTML/Guides/Cheatsheet)
+[HTML elements reference](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements)
 
 ## 块级元素和行内元素
 
