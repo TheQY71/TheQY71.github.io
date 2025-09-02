@@ -5,6 +5,9 @@ title = 'Learn_html'
 categories = ["前端"]
 tags = ["html", "基础","学习笔记"]
 +++
+
+[![image.png](https://i.postimg.cc/Hx2vrW3W/image.png)](https://postimg.cc/hzX1wBHN)
+
 ## documents
 
 [mdn HTML Guides](https://developer.mozilla.org/en-US/docs/Web/HTML/Guides)

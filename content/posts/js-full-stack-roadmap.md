@@ -8,8 +8,8 @@ title = 'Js Full Stack Roadmap'
 
 # web 开发基础
 
-- [ ] HTML
-- [ ] CSS
+- [X] HTML
+- [X] CSS
 - [ ] javascript
 - [ ] Tailwind CSS
 - [ ] UI组件库Daisy UI shoelace flowbite
