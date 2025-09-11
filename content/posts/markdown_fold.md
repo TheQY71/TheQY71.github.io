@@ -4,6 +4,8 @@ draft = false
 title = 'Markdown_fold'
 +++
 
+## 折叠代码块实现
+
 我遇到长的代码块不想直接展示在博客中，想尝试折叠的方法，大模型给了我一种写法：
 
 ```html
@@ -64,7 +66,9 @@ title = 'Markdown_fold'
 ---
 换行又回来了😊
 
-但是使用typora写markdown的话，就会发现在typora中渲染的结果是这样的。：
+## typora渲染折叠代码块错误
+
+使用typora写markdown的话，就会发现在typora中渲染的结果是这样的。：
 
 [![image.png](https://i.postimg.cc/Bb6kM0MQ/image.png)](https://postimg.cc/7GFKZjFp)
 
@@ -99,4 +103,68 @@ line2
 typora中的效果展示：
 [![image.png](https://i.postimg.cc/zXPJ9T2p/image.png)](https://postimg.cc/SJCF9Yhz)
 
-over
+
+## hugo Shortcode
+
+上面博客中折叠的代码没有行号，通过hugo shrotcode可以解决这个问题
+
+**当我们在 Markdown 文件中直接写入 HTML 标签（如 `<details>`）时，Hugo 的 Markdown 处理器（默认是 Goldmark）会把这部分内容当作“原生 HTML 块”，并且默认不会再对这里面的 Markdown 内容应用 Hugo 特有的高级功能，比如代码高亮配置（包括行号、高亮行等）。**
+
+要解决这个问题，你需要用“Hugo 的方式”来生成这个折叠效果。最佳实践是创建一个 **Shortcode**。
+
+### 方法一：创建 Hugo Shortcode（官方推荐的最佳实践）
+
+Shortcode 是 Hugo 的一个核心功能，它允许你创建可重用的 HTML 模板片段，并且能确保包裹在其中的 Markdown 内容被 Hugo 正确处理。
+
+#### 步骤 1：创建 `details.html` Shortcode 文件
+
+在你的 Hugo 项目的根目录下，找到或创建 `layouts/shortcodes/` 文件夹，然后在里面创建一个名为 `details.html` 的文件。
+
+文件路径：`/layouts/shortcodes/details.html`
+
+文件内容如下：
+
+```html
+<details>
+  <summary>{{ .Get "summary" | default "点击查看详情" }}</summary>
+  {{ .Inner | markdownify }}
+</details>
+```
+
+**代码解释:**
+
+  * `{{ .Get "summary" }}`: 获取你在 shortcode 中传入的名为 `summary` 的参数，作为折叠框的标题。
+  * `| default "点击查看详情"`: 如果没有提供 `summary` 参数，就使用一个默认标题。
+  * `{{ .Inner }}`: 这是最关键的部分，它代表所有包裹在 shortcode 开始和结束标签之间的内容。
+  * `| markdownify`: 这是“魔法”所在！它告诉 Hugo：“请用标准的 Markdown 处理器来渲染 `Inner` 里的所有内容”。这样一来，代码块的行号、高亮等功能就都能生效了。
+
+#### 步骤 2：在 Markdown 文件中使用 Shortcode
+
+现在，你可以用下面这种更简洁、更强大的方式来写你的折叠代码块了。
+
+**用法示例:**
+
+```markdown
+{{</* details summary="点击查看运行结果" */>}}
+```text {hl_lines=["2"]}
+The code you wish to conceal.
+line2
+line3
+\```
+{{\</\* /details \*/\>}}
+```
+
+**注意：**
+* 上面的使用示例中的`/*`和`*\` 都要删掉，这是为了博客不渲染这块代码而额外加的。
+* 现在你可以在代码块的语言标记后面自由地添加 Hugo 的所有代码块参数了，比如 `{linenos=true}` 就是显示行号。你还可以用 `{hl_lines=["2-3", 5]}` 来高亮特定行。
+
+---
+
+**实际效果**：
+{{<details summary="点击查看代码">}}
+```text {hl_lines=["2"]}
+The code you wish to conceal.
+line2
+line3
+```
+{{</details>}}

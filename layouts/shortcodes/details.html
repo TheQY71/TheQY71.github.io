@@ -1,0 +1,4 @@
+<details>
+    <summary>{{ .Get "summary" | default "点击查看详情" }}</summary>
+    {{ .Inner | markdownify }}
+</details>
