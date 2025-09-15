@@ -1,7 +1,7 @@
 +++
 date = '2025-09-11T10:35:26+08:00'
 draft = false
-title = 'Markdown_fold'
+title = '在博客中优雅地折叠代码块，从基础HTML到Hugo Shortcode'
 +++
 
 ## 折叠代码块实现
