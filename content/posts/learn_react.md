@@ -1,10 +1,104 @@
 +++
 date = '2025-09-17T21:16:53+08:00'
-draft = true
+draft = false
 title = 'Learn_react'
 +++
 
-AI生成
+react的学习笔记，部分AI生成
+视频：
+
+https://www.youtube.com/watch?v=x4rFhThSX04
+
+https://www.bilibili.com/video/BV1Wx4y1U7wG
+
+# React基础知识
+
+## 第一个react代码
+
+捕捉input框内容，同步到下面的p标签内
+
+[![image.png](https://i.postimg.cc/Xvq9g7XT/image.png)](https://postimg.cc/mcxcL4Yw)
+
+原生js：
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+</head>
+
+<body>
+    <div id="vanilla">
+        <h1>Title</h1>
+        <input class="vanilla-input" type="text">
+        <p class="vanilla-p"></p>
+    </div>
+
+    <script src="main.js"></script>
+</body>
+</html>
+```
+```JavaScript
+const inputEl = document.querySelector('.vanilla-input');
+const pEl = document.querySelector('.vanilla-p');
+
+inputEl.addEventListener('input', (e) => {
+    pEl.textContent = e.target.value;
+});
+```
+
+react版本
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+
+<body>
+    <div id="app"></div>
+    <script src="main-react.js" type="text/babel"></script>
+</body>
+</html>
+```
+
+```JavaScript
+function MyApp() {
+    const [textInput, setTextInput] = React.useState("");
+    return (
+        <main>
+            <h1>Title</h1>
+            <input type="text" onChange={(event) => setTextInput(event.target.value)} />
+            <p>{textInput}</p>
+        </main>
+    );
+}
+
+
+const appEl = document.querySelector('#app');
+const root = ReactDOM.createRoot(appEl);
+
+root.render(<MyApp />);
+```
+
+
+# 旅游日志项目
+
+2
+
+# Chef Claude项目
+
+3
+
 
 # Vite 入门指南
 
@@ -53,6 +147,8 @@ npm run dev
 启动成功后，终端通常会显示一个本地访问地址，默认为 `http://localhost:5173/`。在浏览器中打开这个地址，你就能看到你的 Vite 应用了！
 
 ## 初识React 
+
+[![image.png](https://i.postimg.cc/xTWVvrQN/image.png)](https://postimg.cc/LnBWSbnm)
 
 ### `App.jsx`
 
@@ -176,4 +272,123 @@ function Food() {
     );
 }
 export default Food
+```
+
+## card
+
+[![image.png](https://i.postimg.cc/YS9dS3D2/image.png)](https://postimg.cc/w1CXfhdn)
+
+App.jsx
+```jsx
+import Card from "./Card.jsx";
+
+function App() {
+  return (
+    <>
+      <Card />
+      <Card />
+      <Card />
+      <Card />
+    </>
+  );
+}
+
+export default App
+```
+
+Card.jsx
+```jsx
+import profilePic from './assets/IMG_1044.JPG'
+function Card() {
+    return (
+        <div className="card">
+            <img src={profilePic} alt="profilePic" className='profile-picture' />
+            <h2 className='card-title'>QY</h2>
+            <p className='card-text'>I learn react!</p>
+        </div>
+    )
+}
+export default Card
+```
+
+
+{{< details summary="index.css" >}}
+```css
+.card {
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-shadow: 5px 5px 15px #aaa;
+  padding: 30px;
+  margin: 10px;
+  max-width: 250px;
+  display: inline-block;
+  text-align: center;
+
+}
+
+.card .profile-picture {
+  max-width: 60%;
+  height: auto;
+  border-radius: 50%;
+  margin-bottom: 10px;
+}
+
+.card .card-title {
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  color: hsl(0, 0%, 20%);
+}
+
+.card .card-text {
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  color: hsl(0, 0%, 30%);
+}
+```
+{{< /details >}}
+
+## Button
+
+[![image.png](https://i.postimg.cc/1X6wvWMH/image.png)](https://postimg.cc/T5dKwJzL)
+
+### App.jsx
+
+```jsx
+import Button from "./Button.jsx";
+
+function App() {
+  return (
+    <>
+      <Button />
+    </>
+  );
+}
+
+export default App
+```
+
+### Button.jsx
+```jsx
+function Button() {
+    const styles = {
+        backgroundColor: "#4CAF50",
+        /* Green */
+        border: "none",
+        color: "white",
+        padding: "15px 32px",
+        textAlign: "center",
+        textDecoration: "none",
+        display: "inline-block",
+        fontSize: "16px",
+        margin: "4px 2px",
+        cursor: "pointer",
+        borderRadius: "8px",
+
+    }
+    return (
+        <button style={styles}>Click me</button>
+    );
+
+}
+export default Button;
 ```
