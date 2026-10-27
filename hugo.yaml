@@ -72,7 +72,7 @@ params:
   homeInfoParams:
     Title: "Hey Guys 👋"
     Content: >
-      Welcome to my Blog! 这里主要记录了我的学习过程中的一些笔记。博客因为是托管在 Github 上面，以及，图床使用的是国外免费的 Postimages，所以，挂上一个梯子可能会让访问更加顺畅。
+      Welcome to my Blog! 我在学习 agent 和 逆向
 
   # 社交帐号的按钮
   socialIcons:
